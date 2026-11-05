@@ -110,14 +110,16 @@ function buildZohoLead(row,p){
   let first=cleanName(contact.firstName), last=cleanName(contact.lastName);
   if(!last){ const parts=cleanName(contact.fullName).split(/\s+/).filter(Boolean); if(parts.length>1&&!first){first=parts.shift();} last=parts.join(" "); }
   if(first&&last===first+" "+first) last=first;
-  const data={Last_Name:field(last,80)||"Lead",Email:field(contact.email,254).toLowerCase(),Tag:[{name:row.site},{name:tipo}],Designation:tipo,Lead_Source:ans.partner?"Partner":"Web Download",Website:field(ans.landing_url||SITE_URLS[row.site]||"",255)};
+  const isPromo=String(ans.source||p.variant||"").includes("promo_novembre")||String(p.variant||"")==="promo_novembre_10";
+  const tags=[{name:row.site},{name:tipo}]; if(isPromo) tags.push({name:"Sconto10"});
+  const data={Last_Name:field(last,80)||"Lead",Email:field(contact.email,254).toLowerCase(),Tag:tags,Designation:tipo,Lead_Source:ans.partner?"Partner":(isPromo?"Sconto10":"Web Download"),Website:field(ans.landing_url||SITE_URLS[row.site]||"",255)};
   if(first)data.First_Name=field(first,40);
   const phone=field(contact.phone,30), city=field(ans.city||ans.comune,100), zip=field(p.cap||ans.cap,30);
   if(phone)data.Phone=phone; if(city)data.City=city; if(zip)data.Zip_Code=zip;
   if(ans.street||ans.address)data.Street=field(ans.street||ans.address,250);
   if(ans.partner)data.Company=field(contact.company||ans.company||contact.fullName,200);
   if(imp)data.Annual_Revenue=imp;
-  const L=[`Sito: ${label}`,`Tipo: ${tipo}`,`Importo stimato: ${imp?imp.toLocaleString("it-IT")+" €"+(q.stimaMensileEur!=null?" /anno ("+q.stimaMensileEur+" €/mese + IVA)":""):"-"}`];
+  const L=[`Sito: ${label}`,`Tipo: ${tipo}`,isPromo?"Promo: Sconto10 (−10% primo mese)":null,`Importo stimato: ${imp?imp.toLocaleString("it-IT")+" €"+(q.stimaMensileEur!=null?" /anno ("+q.stimaMensileEur+" €/mese + IVA)":""):"-"}`].filter(Boolean);
   if(row.site==="puliziecondominialiverona"&&!ans.partner) L.push(`Piani: ${q.piani??"-"}`,`Appartamenti: ${q.appartamenti??"-"}`,`Frequenza: ${q.frequenza||"-"}`,`Servizi extra: ${[q.ascensore&&"ascensore",q.areaEsterna&&"area esterna",q.garage&&"garage",q.piuScale&&"più scale"].filter(Boolean).join(", ")||"nessuno"}`,`Riepilogo: ${q.riepilogo||""}`);
   else if(ans.partner) L.push(`Candidatura impresa partner (${ans.tipo||""})`);
   else L.push(`Intervento: ${ans.intervento||e.intervention||"-"}`,`Mq: ${ans.mq??e.mq??"-"} · Piani: ${e.piani??"-"} · Appartamenti: ${ans.appartamenti??"-"}`,`Anno: ${ans.anno||"-"} · Stato: ${(ans.stato||[]).join(", ")}`,`Range: ${e.low??e.min??"-"} – ${e.high??e.max??"-"} €`,`Score: ${p.lead_score??""}`);

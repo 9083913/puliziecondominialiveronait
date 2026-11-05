@@ -70,7 +70,7 @@ export async function handlePulizie(context, kind) {
     answers,
     estimate: isPartner ? {} : { low: quote.stimaMensileEur, high: quote.stimaMensileEur, intervention: "pulizie_condominiali", currency: "EUR", period: "month" },
     utm,
-    variant: isPartner ? "pcv-partner" : SITE_TAG,
+    variant: isPartner ? "pcv-partner" : (cleanText(body.source, 40) === "promo_novembre_10" ? "promo_novembre_10" : SITE_TAG),
     page: "/",
     referrer: cleanText(attr.referrer, 500),
   };
