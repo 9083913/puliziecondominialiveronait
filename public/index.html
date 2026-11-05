@@ -1441,5 +1441,23 @@ footer nav button, footer .btn{font-size:var(--fs-sm)!important;min-height:44px!
 }
 </style>
 
+<!-- Promo Novembre: exit-intent + 90s -->
+<style>#pv-promo{position:fixed;inset:0;background:rgba(10,16,30,.55);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px}#pv-promo[hidden]{display:none}#pv-promo .c{background:#fff;color:#152238;max-width:420px;width:100%;border-radius:20px;padding:26px;box-shadow:0 30px 80px rgba(0,0,0,.35);position:relative;font-family:inherit}#pv-promo .b{display:inline-block;background:#16a36a;color:#fff;font-weight:700;font-size:12px;letter-spacing:.06em;padding:4px 10px;border-radius:99px}#pv-promo h2{font-size:26px;line-height:1.1;margin:12px 0 6px;letter-spacing:-.03em}#pv-promo p{margin:0 0 14px;color:#5e6b80;font-size:15px}#pv-promo input{width:100%;border:1px solid #d6deeb;border-radius:10px;padding:12px;margin:0 0 8px;font:inherit}#pv-promo button.go{width:100%;background:#1744c8;color:#fff;border:0;border-radius:12px;padding:14px;font-weight:700;font-size:16px;cursor:pointer}#pv-promo .x{position:absolute;top:10px;right:12px;background:none;border:0;font-size:22px;cursor:pointer;color:#8a94a6}#pv-promo small{display:block;color:#8a94a6;font-size:12px;margin-top:8px}#pv-promo label{display:flex;gap:8px;font-size:12px;color:#5e6b80;margin:4px 0 10px;align-items:flex-start}#pv-promo label input{width:auto;margin:2px 0 0}</style>
+<div id="pv-promo" hidden role="dialog" aria-label="Offerta Novembre"><div class="c"><button class="x" type="button" data-x aria-label="Chiudi">×</button>
+<div id="pv-f"><span class="b">SOLO A NOVEMBRE 2026</span><h2>−10% sul primo trimestre di pulizie</h2><p>Riservato ai nuovi condomini di Verona e provincia che richiedono il preventivo entro il 30 novembre. Sopralluogo gratuito, nessun vincolo.</p>
+<form id="pv-form" novalidate><input id="pv-n" placeholder="Nome e cognome" autocomplete="name" required><input id="pv-t" type="tel" placeholder="Telefono" autocomplete="tel" required><input id="pv-e" type="email" placeholder="Email" autocomplete="email" required><input name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+<label><input type="checkbox" id="pv-p"> <span>Ho letto l'informativa privacy e acconsento a essere ricontattato.</span></label>
+<button class="go" type="submit">Blocca il mio 10%</button><small id="pv-err"></small><small>Ti richiamiamo entro 24 ore lavorative · posti limitati questo mese</small></form></div>
+<div id="pv-ok" hidden><h2>Sconto bloccato ✓</h2><p>Il tuo −10% di Novembre è riservato. Ti chiamiamo entro 24 ore lavorative.</p></div></div></div>
+<script>(function(){var m=document.getElementById('pv-promo'),K='pv_promo_nov26',t0=Date.now();if(new Date()>new Date('2026-12-01'))return;
+function seen(){try{return localStorage.getItem(K)}catch(e){return 1}}function mark(v){try{localStorage.setItem(K,v)}catch(e){}}
+function show(){if(seen()||!m.hidden)return;var o=document.querySelector('.modal:not([hidden]),[role=dialog]:not([hidden]):not(#pv-promo)');if(o)return;m.hidden=false;mark('shown')}
+setTimeout(show,90000);document.addEventListener('mouseout',function(e){if(!e.relatedTarget&&e.clientY<=0&&Date.now()-t0>8000)show()});
+var lastY=0;window.addEventListener('scroll',function(){var y=scrollY;if(y<lastY-400&&y<300&&Date.now()-t0>25000)show();lastY=y},{passive:true});
+m.addEventListener('click',function(e){if(e.target===m||e.target.closest('[data-x]'))m.hidden=true});
+document.getElementById('pv-form').addEventListener('submit',function(e){e.preventDefault();var n=pvn.value.trim(),t=pvt.value.trim(),em=pve.value.trim(),er=document.getElementById('pv-err');
+if(n.length<3||t.replace(/\D/g,'').length<8||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em))return er.textContent='Controlla nome, telefono ed email.';if(!document.getElementById('pv-p').checked)return er.textContent='Conferma l\'informativa privacy.';
+er.textContent='Invio…';fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:n,telefono:t,email:em,privacy:true,source:'promo_novembre_10',mode:'call',website:e.target.website.value,device:innerWidth<768?'mobile':'desktop',t:Date.now()-t0,attribution:{landing_url:location.href,referrer:document.referrer}})}).then(function(r){return r.json()}).then(function(j){if(!j.ok)throw new Error(j.error);mark('sent');document.getElementById('pv-f').hidden=true;document.getElementById('pv-ok').hidden=false}).catch(function(x){er.textContent=x.message||'Errore, chiamaci al 331 733 8620'})});
+var pvn=document.getElementById('pv-n'),pvt=document.getElementById('pv-t'),pve=document.getElementById('pv-e')})();</script>
 </body>
 </html>
