@@ -456,7 +456,7 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
         <div id="lines" class="mt-3 divide-y divide-dashed divide-gray-300 border-y border-dashed border-gray-300 text-[13.5px]" aria-hidden="true"></div>
         <div class="mt-4 flex items-end justify-between gap-3">
           <div>
-            <p class="text-[11px] font-semibold uppercase tracking-[.12em] text-gray-500">Canone mensile indicativo</p>
+            <p class="text-[11px] font-semibold uppercase tracking-[.12em] text-gray-500">Canone indicativo</p>
             <p class="mt-0.5 text-[34px] font-semibold leading-none tracking-tight"><span id="tot">295 €</span></p>
             <p class="mt-1 text-xs text-gray-500">IVA esclusa</p>
           </div>
@@ -491,10 +491,10 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
 <!-- ============ PERCHÉ NOI ============ -->
 <section id="perche" class="bg-[#F9FAFB] py-8 sm:py-10" aria-labelledby="h-why">
   <div class="wrap">
-    <div class="mb-5"><p class="eyebrow">Perché sceglierci</p><h2 id="h-why" class="h2 mt-1 why-title">Perché affidare la pulizia del condominio alla nostra impresa.</h2></div>
+    <div class="mb-5"><p class="eyebrow">Perché sceglierci</p><h2 id="h-why" class="h2 mt-1 why-title">Perché affidarci la pulizia del condominio.</h2></div>
     <div id="why" class="grid gap-3 sm:grid-cols-2 md:grid-cols-3"></div>
     <div class="mt-6 flex flex-wrap items-center gap-3">
-      <button type="button" data-lead class="btn btn-primary w-full sm:w-auto">Richiedi un preventivo per il tuo condominio</button>
+      <button type="button" data-lead class="btn btn-primary w-full sm:w-auto">Richiedi un preventivo gratuito</button>
       <a href="tel:+393317338620" data-track="call_click:perche" class="btn btn-secondary w-full sm:w-auto">Parla con un referente</a>
       <span class="text-sm text-gray-500">Gestisci più stabili? <a href="tel:+393317338620" class="font-medium text-brand hover:underline">Richiedi una proposta dedicata</a></span>
     </div>
@@ -575,7 +575,7 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
     <nav class="footer-legal flex flex-nowrap items-center gap-1.5 overflow-x-auto sm:gap-2" aria-label="Informazioni legali">
       <button type="button" data-legal="privacy" class="btn btn-ghost h-9 min-w-0 flex-1 gap-0 whitespace-nowrap rounded-lg px-2 text-[12px] font-semibold sm:h-11 sm:flex-none sm:rounded-[10px] sm:px-4 sm:text-sm">Privacy Policy</button>
       <button type="button" data-legal="cookie" class="btn btn-ghost h-9 min-w-0 flex-1 gap-0 whitespace-nowrap rounded-lg px-2 text-[12px] font-semibold sm:h-11 sm:flex-none sm:rounded-[10px] sm:px-4 sm:text-sm">Cookie Policy</button>
-      <button type="button" data-legal="termini" class="btn btn-ghost h-9 min-w-0 flex-1 gap-0 whitespace-nowrap rounded-lg px-2 text-[12px] font-semibold sm:h-11 sm:flex-none sm:rounded-[10px] sm:px-4 sm:text-sm">Condizioni del servizio</button>
+      <button type="button" data-legal="termini" class="btn btn-ghost h-9 min-w-0 flex-1 gap-0 whitespace-nowrap rounded-lg px-2 text-[12px] font-semibold sm:h-11 sm:flex-none sm:rounded-[10px] sm:px-4 sm:text-sm">Condizioni<span class="fl-long"> del servizio</span></button>
     </nav>
   </div>
 </footer>
@@ -1316,6 +1316,112 @@ header .wrap {
   main {
     overflow-x: clip;
   }
+}
+</style>
+
+<style id="type-scale-2026-11-05-t20">
+/* =====================================================================
+   UNIFORM TYPE SCALE (t20)
+   13 caption · 14 secondary/label · 16 body/button · 18 lead/modal title
+   H2 sezioni: 22 mobile / 30 desktop · Hero invariato · Prezzo 40/48
+   Header desktop NON toccato.
+   ===================================================================== */
+:root{--fs-cap:13px;--fs-sm:14px;--fs-base:16px;--fs-lg:18px;--fs-h2:30px;--fs-h2-m:22px}
+
+/* --- Section titles: one size everywhere (incl. Lavora con noi + CTA finale) --- */
+.h2, #lavora #h-job, main>section:last-child h2{
+  font-size:var(--fs-h2)!important;line-height:1.15!important;letter-spacing:-.035em!important;font-weight:750!important}
+.eyebrow, #lavora .text-brand-100{font-size:var(--fs-cap)!important;font-weight:700!important;letter-spacing:.1em!important;text-transform:uppercase}
+#incluso .max-w-2xl, #perche .mb-5 p:last-child, section[aria-labelledby="h-extra"] .mb-5 p:last-child,
+#lavora p.text-gray-300, main>section:last-child p{font-size:var(--fs-base)!important;line-height:1.55!important}
+#lavora ul{font-size:var(--fs-sm)!important}
+#top .wrap>div:first-child p{font-size:var(--fs-lg)!important;line-height:1.5!important}
+#top .hero-cta>span{font-size:var(--fs-sm)!important}
+
+/* --- Buttons: same font + height per size, everywhere except desktop header --- */
+main .btn, dialog .btn, footer .btn, #mbar .btn, #ckbar .btn{
+  font-size:var(--fs-base)!important;font-weight:650!important;min-height:48px!important;height:auto!important;
+  padding:0 20px!important;line-height:1.2!important;border-radius:11px!important}
+main .btn-sm, dialog .btn-sm, footer .btn-sm, #mbar .btn-sm, #ckbar .btn{
+  font-size:var(--fs-sm)!important;min-height:44px!important;padding:0 16px!important}
+main .btn-lg, dialog .btn-lg{font-size:var(--fs-base)!important;min-height:52px!important;padding:0 24px!important}
+
+/* --- Calculator --- */
+#calcolatrice .label{font-size:var(--fs-sm)!important;font-weight:700!important;line-height:1.35!important}
+#presets .pt{font-size:var(--fs-base)!important}
+#presets .preset span+span{font-size:var(--fs-cap)!important}
+.opt,.tog{font-size:var(--fs-sm)!important;font-weight:600!important}
+#freq .opt span{font-size:var(--fs-cap)!important}
+#notes, #calcolatrice>div:first-child>div:last-child, #lines{font-size:var(--fs-sm)!important;line-height:1.45!important}
+#calcolatrice>aside .text-xs, #calcolatrice>aside .text-gray-500, #calcolatrice>aside .uppercase,
+#calcolatrice>aside .text-brand\/80{font-size:var(--fs-cap)!important;line-height:1.35!important}
+#calcolatrice>aside>p:last-child{font-size:var(--fs-cap)!important;line-height:1.5!important}
+#calcolatrice>aside .uppercase{letter-spacing:.06em!important}
+#calcolatrice>aside #tot{font-size:48px!important}
+#calcolatrice>aside #ppa{font-size:24px!important}
+#calcolatrice>aside #ppa+span{font-size:var(--fs-cap)!important}
+
+/* --- Cards, zones, FAQ --- */
+.card b, #extra>a b{font-size:var(--fs-base)!important;line-height:1.35!important}
+.card span span, #extra>a span span{font-size:var(--fs-sm)!important;line-height:1.45!important}
+#zone, #zone li{font-size:var(--fs-base)!important;line-height:1.45!important}
+#faqs summary, #faq summary{font-size:var(--fs-base)!important;line-height:1.45!important}
+#faqs details>p{font-size:var(--fs-base)!important;line-height:1.6!important}
+#perche .mt-6>span{font-size:var(--fs-sm)!important}
+
+/* --- Footer, cookie --- */
+footer, footer p{font-size:var(--fs-sm)!important;line-height:1.55!important}
+footer nav button, footer .btn{font-size:var(--fs-sm)!important;min-height:44px!important}
+#ckbar p{font-size:var(--fs-sm)!important}
+
+/* --- Lead + partner modal --- */
+#m-lead h2, #m-partner h2{font-size:20px!important;line-height:1.25!important;font-weight:750!important}
+#m-lead #ml-body>p, #m-partner #mp-body>p{font-size:var(--fs-sm)!important;line-height:1.45!important}
+#m-lead #ml-body>div.rounded-\[10px\]{font-size:var(--fs-sm)!important}
+#m-lead #ml-body>div.rounded-\[10px\] b{font-size:var(--fs-base)!important;font-weight:700!important}
+#m-lead .label, #m-partner .label{font-size:var(--fs-sm)!important;font-weight:600!important;margin-bottom:5px!important}
+#m-lead .input, #m-partner .input{font-size:var(--fs-base)!important;min-height:44px!important;height:44px!important}
+#m-lead form>label, #m-partner form>label{font-size:var(--fs-sm)!important;line-height:1.45!important}
+#m-lead .err, #m-partner .err{font-size:var(--fs-cap)!important}
+#m-lead button[type=submit], #m-partner button[type=submit]{font-size:var(--fs-base)!important;min-height:52px!important}
+/* X close only (not the "Chiudi" text button) */
+#m-lead [data-close].absolute, #m-partner [data-close].absolute{width:36px!important;height:36px!important;min-height:0!important;padding:0!important}
+/* Success state */
+#m-lead [role=status] h2, #m-partner [role=status] h2{font-size:20px!important}
+#m-lead [role=status] p, #m-partner [role=status] p{font-size:var(--fs-base)!important;line-height:1.5!important}
+#m-lead [role=status] .btn, #m-partner [role=status] .btn{min-width:180px!important;width:auto!important;min-height:48px!important;height:48px!important;padding:0 28px!important;font-size:var(--fs-base)!important}
+
+/* --- Legal modal --- */
+#m-legal #lg-title{font-size:24px!important;line-height:1.2!important}
+#m-legal [data-close].btn{min-width:110px!important}
+#m-legal #lg-body, #m-legal #lg-body p, #m-legal #lg-body li{font-size:var(--fs-base)!important}
+#m-legal #lg-body h3{font-size:var(--fs-lg)!important}
+
+#tot{white-space:nowrap}
+@media (min-width:640px){ .sm\:hidden{display:none!important} }
+@media (max-width:380px){ #calcolatrice>aside #tot{font-size:36px!important} }
+/* --- Mobile --- */
+@media (max-width:639px){
+  .h2, #lavora #h-job, main>section:last-child h2, .why-title{
+    font-size:var(--fs-h2-m)!important;line-height:1.2!important;letter-spacing:-.03em!important;max-width:none!important}
+  #top .wrap>div:first-child p{font-size:var(--fs-base)!important}
+  /* hero: both lines same size, first line on one row */
+  #top .hero-title .hero-line-secondary{font-size:clamp(1.42rem,6.1vw,1.72rem)!important;max-width:none!important}
+  #calcolatrice>aside #tot{font-size:40px!important}
+  #m-lead h2, #m-partner h2{font-size:var(--fs-lg)!important}
+  #m-lead .label, #m-partner .label{font-size:var(--fs-cap)!important;margin-bottom:3px!important}
+  #m-lead .input, #m-partner .input{min-height:42px!important;height:42px!important}
+  #m-lead form>label, #m-partner form>label{font-size:var(--fs-cap)!important;margin-top:10px!important}
+  #m-lead button[type=submit], #m-partner button[type=submit]{min-height:48px!important}
+  #m-legal #lg-title{font-size:20px!important}
+  footer nav button, footer .btn{font-size:var(--fs-cap)!important;padding:0 8px!important}
+  footer .fl-long{display:none}
+  main>section:last-child .btn, #perche .mt-6 .btn{width:100%}
+  main .btn:not(#mbar .btn){white-space:normal!important;text-align:center!important;padding-top:10px!important;padding-bottom:10px!important}
+  #calcolatrice aside .grid .btn-sm{padding:0 6px!important;font-size:var(--fs-cap)!important;white-space:nowrap!important;letter-spacing:-.01em!important}
+  #presets .preset{padding:10px!important}
+  main .btn-lg, dialog .btn-lg{padding-left:14px!important;padding-right:14px!important}
+  #presets .preset span+span{font-size:12px!important}
 }
 </style>
 
