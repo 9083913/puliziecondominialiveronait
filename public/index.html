@@ -311,6 +311,66 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
 }
 
 </style>
+
+<style id="mobile-ux-fixes-2026-11-05">
+/* Remove badge space already done in HTML; tighten hero on phones */
+@media (max-width: 639px) {
+  #top { padding-top: 4px !important; padding-bottom: 1rem !important; }
+  .hero-title {
+    font-size: clamp(1.55rem, 6.8vw, 1.85rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.035em !important;
+    max-width: none !important;
+  }
+  .hero-title .hero-line { display: block; white-space: normal !important; }
+  .hero-title .hero-line-primary {
+    white-space: nowrap !important;
+    font-size: clamp(1.42rem, 6.1vw, 1.72rem) !important;
+  }
+  .hero-title .hero-line-secondary {
+    margin-top: 2px;
+    max-width: 17.5ch;
+    line-height: 1.15 !important;
+  }
+  .hero-cta { margin-top: 10px !important; }
+  .hero-cta .btn { height: 2.6rem; font-size: 14.5px; }
+  .recap-line {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    line-height: 1.35;
+  }
+  .why-title {
+    font-size: 1.28rem !important;
+    line-height: 1.22 !important;
+    max-width: 22ch;
+  }
+  #m-lead {
+    width: min(100vw - 12px, 560px) !important;
+    max-height: min(96dvh, 920px);
+    margin: auto;
+    border-radius: 14px !important;
+  }
+  #m-lead #ml-body {
+    padding: 14px 14px 12px !important;
+  }
+  #m-lead .label { margin-bottom: 2px; font-size: 12px; }
+  #m-lead .input { height: 2.35rem; font-size: 14px; border-radius: 8px; padding-left: 0.7rem; padding-right: 0.7rem; }
+  #m-lead .lead-form label.mt-4 { margin-top: 0.55rem; font-size: 12px; }
+  #m-lead .btn { height: 2.55rem; font-size: 14.5px; }
+  #m-lead [data-close] { right: 8px; top: 8px; height: 2rem; width: 2rem; }
+  .footer-legal { width: 100%; }
+  .footer-legal .btn { padding-left: 0.4rem; padding-right: 0.4rem; }
+}
+/* Laptops 14–16": keep compact hero without the removed pill */
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .hero-title { font-size: clamp(2.05rem, 2.6vw, 2.55rem) !important; }
+}
+/* Hide typography studio on published site */
+#font-studio-launch, #font-studio { display: none !important; }
+</style>
 </head>
 <body>
 <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] btn btn-primary">Vai al contenuto</a>
@@ -328,9 +388,10 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
       <a href="#lavora" class="rounded-lg px-3 py-2 hover:bg-gray-100 hover:text-ink">Collabora con noi</a>
       <a href="#faq" class="rounded-lg px-3 py-2 hover:bg-gray-100 hover:text-ink">FAQ</a>
     </nav>
-    <a href="tel:+393317338620" data-track="call_click:header" class="flex items-center gap-2 text-sm font-semibold" aria-label="Parla con un referente al 331 733 8620">
-      <span class="grid h-9 w-9 place-items-center rounded-full bg-gray-100 text-brand sm:h-auto sm:w-auto sm:bg-transparent"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span>
-      <span class="hidden sm:flex sm:flex-col sm:leading-tight"><span>Parla con un referente</span><span class="text-xs font-normal text-gray-500">331 733 8620</span></span>
+    <a href="tel:+393317338620" data-track="call_click:header" class="flex items-center gap-2 text-sm font-semibold text-brand" aria-label="Chiama ora al 331 733 8620">
+      <span class="grid h-9 w-9 place-items-center rounded-full bg-brand-50 text-brand ring-1 ring-brand/20 sm:h-auto sm:w-auto sm:bg-transparent sm:ring-0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span>
+      <span class="sm:hidden text-[13px] font-semibold tracking-tight">Chiama Ora</span>
+      <span class="hidden sm:flex sm:flex-col sm:leading-tight text-ink"><span>Parla con un referente</span><span class="text-xs font-normal text-gray-500">331 733 8620</span></span>
     </a>
     <button type="button" data-lead class="btn btn-primary btn-sm hidden sm:inline-flex">Richiedi preventivo</button>
   </div>
@@ -342,9 +403,8 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
   <div class="wrap">
     <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
       <div class="max-w-2xl">
-        <span class="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-700 shadow-sm"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>PULIZIE PROFESSIONALI · VERONA E PROVINCIA</span>
-        <h1 class="hero-title mt-3"><span class="hero-line hero-line-primary">Pulizie condominiali a Verona.</span><span class="hero-line text-brand hero-line-secondary">Costi chiari. Interventi programmati.</span></h1>
-        <p class="mt-3 max-w-xl text-gray-600">Pulizia programmata di scale e spazi comuni, con prodotti inclusi e frequenze concordate.</p>
+        <h1 class="hero-title mt-1 sm:mt-2"><span class="hero-line hero-line-primary">Pulizie condominiali a Verona.</span><span class="hero-line text-brand hero-line-secondary">Costi chiari. Interventi programmati.</span></h1>
+        <p class="mt-3 max-w-xl text-gray-600 hidden sm:block">Pulizia programmata di scale e spazi comuni, con prodotti inclusi e frequenze concordate.</p>
         <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 hero-cta">
           <a href="#calcolatrice" class="btn btn-primary btn-lg" data-track="calculator_jump:hero">Calcola il costo mensile</a>
           <span class="inline-flex items-center gap-2 text-sm font-medium text-gray-600"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#15945A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Sopralluogo gratuito e senza impegno</span>
@@ -385,7 +445,7 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
         </div>
         <div class="mt-auto flex items-start gap-2.5 rounded-[10px] bg-[#F9FAFB] px-3.5 py-3 text-[13px] text-gray-600 ring-1 ring-gray-200">
           <svg class="mt-0.5 shrink-0 text-emerald-600" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <span><b class="font-semibold text-ink" id="recap"></b> · prodotti e attrezzature inclusi</span>
+          <span class="recap-line"><b class="font-semibold text-ink" id="recap"></b> · prodotti e attrezzature inclusi</span>
         </div>
       </div>
 
@@ -431,7 +491,7 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
 <!-- ============ PERCHÉ NOI ============ -->
 <section id="perche" class="bg-[#F9FAFB] py-8 sm:py-10" aria-labelledby="h-why">
   <div class="wrap">
-    <div class="mb-5"><p class="eyebrow">Perché sceglierci</p><h2 id="h-why" class="h2 mt-1">Perché affidare la pulizia del condominio alla nostra impresa.</h2></div>
+    <div class="mb-5"><p class="eyebrow">Perché sceglierci</p><h2 id="h-why" class="h2 mt-1 why-title">Perché affidare la pulizia del condominio alla nostra impresa.</h2></div>
     <div id="why" class="grid gap-3 sm:grid-cols-2 md:grid-cols-3"></div>
     <div class="mt-6 flex flex-wrap items-center gap-3">
       <button type="button" data-lead class="btn btn-primary w-full sm:w-auto">Richiedi un preventivo per il tuo condominio</button>
@@ -512,10 +572,10 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
       <p class="mt-1">Tel: <a href="tel:+393317338620" class="hover:text-ink">331 733 8620</a> · E-mail: <a href="mailto:puliziecondominialiverona@gmail.com" class="hover:text-ink">puliziecondominialiverona@gmail.com</a></p>
       <p class="mt-1 text-sm">© 2026 EMIDA SRL. Tutti i diritti riservati.</p>
     </div>
-    <nav class="flex flex-wrap items-center gap-2" aria-label="Informazioni legali">
-      <button type="button" data-legal="privacy" class="btn btn-ghost h-11 min-w-0 gap-0 whitespace-nowrap rounded-lg px-3 text-sm font-semibold sm:rounded-[10px] sm:px-4">Privacy Policy</button>
-      <button type="button" data-legal="cookie" class="btn btn-ghost h-11 min-w-0 gap-0 whitespace-nowrap rounded-lg px-3 text-sm font-semibold sm:rounded-[10px] sm:px-4">Cookie Policy</button>
-      <button type="button" data-legal="termini" class="btn btn-ghost h-11 min-w-0 gap-0 whitespace-nowrap rounded-lg px-3 text-sm font-semibold sm:rounded-[10px] sm:px-4">Condizioni del servizio</button>
+    <nav class="footer-legal flex flex-nowrap items-center gap-1.5 overflow-x-auto sm:gap-2" aria-label="Informazioni legali">
+      <button type="button" data-legal="privacy" class="btn btn-ghost h-9 min-w-0 flex-1 gap-0 whitespace-nowrap rounded-lg px-2 text-[12px] font-semibold sm:h-11 sm:flex-none sm:rounded-[10px] sm:px-4 sm:text-sm">Privacy Policy</button>
+      <button type="button" data-legal="cookie" class="btn btn-ghost h-9 min-w-0 flex-1 gap-0 whitespace-nowrap rounded-lg px-2 text-[12px] font-semibold sm:h-11 sm:flex-none sm:rounded-[10px] sm:px-4 sm:text-sm">Cookie Policy</button>
+      <button type="button" data-legal="termini" class="btn btn-ghost h-9 min-w-0 flex-1 gap-0 whitespace-nowrap rounded-lg px-2 text-[12px] font-semibold sm:h-11 sm:flex-none sm:rounded-[10px] sm:px-4 sm:text-sm">Condizioni del servizio</button>
     </nav>
   </div>
 </footer>
@@ -525,8 +585,8 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
 
 <!-- barra mobile -->
 <nav id="mbar" class="fixed inset-x-0 bottom-0 z-30 flex items-center gap-2 border-t border-gray-200 bg-white/95 px-3 pb-[calc(8px+env(safe-area-inset-bottom))] pt-2 backdrop-blur md:hidden" aria-label="Azioni rapide">
-  <a href="#calcolatrice" class="mr-auto min-w-0 leading-tight"><span class="block text-[11px] font-medium text-gray-500">Canone mensile stimato</span><span class="block whitespace-nowrap text-[17px] font-semibold tracking-tight"><span id="mb-tot">295 €</span><span class="text-xs font-medium text-gray-500">/mese · <span id="mb-ppa">30 €</span>/app.</span></span></a>
-  <a href="tel:+393317338620" data-track="call_click:sticky" class="btn btn-secondary btn-sm w-10 shrink-0 px-0" aria-label="Parla con un referente al 331 733 8620"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a>
+  <a href="#calcolatrice" class="mr-auto min-w-0 leading-tight"><span class="block text-[11px] font-medium text-gray-500">Canone mensile stimato</span><span class="block whitespace-nowrap text-[20px] font-semibold tracking-tight text-ink"><span id="mb-tot">295 €</span><span class="text-[14px] font-semibold text-ink">/mese</span><span id="mb-ppa" class="hidden">30 €</span></span></a>
+  <a href="tel:+393317338620" data-track="call_click:sticky" class="mbar-call grid h-10 w-10 shrink-0 place-items-center rounded-[10px] border border-brand/25 bg-brand-50 text-brand" aria-label="Chiama ora al 331 733 8620"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a>
   <button type="button" data-lead class="btn btn-primary btn-sm shrink-0">Richiedi preventivo</button>
 </nav>
 
@@ -682,7 +742,10 @@ function update(user) {
   var notes = []; if (S.gar) notes.push('+ Pulizia garage: preventivo al sopralluogo.'); if (S.scale) notes.push('Più scale: prezzo definito al sopralluogo.');
   $('#notes').textContent = notes.join(' ');
   $('#live').textContent = 'Stima ' + eur(Q.tot) + ' al mese più IVA, ' + eur(Q.perApp) + ' al mese per appartamento';
-  $('#wa').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent('Buongiorno, ho calcolato sul sito: ' + Q.riep + '. Stima ' + eur(Q.tot) + '/mese + IVA. Vorrei un sopralluogo gratuito.');
+  var waMsg = 'Buongiorno, ho calcolato sul sito: ' + Q.riep + '. Stima ' + eur(Q.tot) + '/mese + IVA. Vorrei un sopralluogo gratuito.';
+  var waUrl = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(waMsg);
+  $('#wa').href = waUrl;
+  var waf = $('#wa-float'); if (waf) waf.href = waUrl;
   if (user) {
     if (!touched) { touched = true; track('calc_interaction'); }
     clearTimeout(chT); chT = setTimeout(function () { track('calc_change', { prezzo_mensile: Q.tot, piani: S.piani, appartamenti: S.app }); }, 800);
@@ -778,11 +841,12 @@ function handleForm(form, opts) {
 var mLead = $('#m-lead');
 function openLead() {
   $('#ml-body').innerHTML = X +
-    '<h2 id="ml-title" class="pr-10 text-xl font-semibold">Richiedi un preventivo per il tuo condominio</h2>' +
-    '<p class="mt-1 text-sm text-gray-600">Inserisci i tuoi recapiti: un referente ti contatterà per raccogliere le informazioni sullo stabile e concordare il sopralluogo.</p>' +
-    '<div class="mt-3 flex items-center justify-between gap-3 rounded-[10px] bg-[#F9FAFB] px-3.5 py-2.5 text-[13px] text-gray-600 ring-1 ring-gray-200"><span class="truncate">' + Q.riep + '</span><b class="shrink-0 text-[15px] font-semibold text-brand">' + eur(Q.tot) + '/mese</b></div>' +
-    '<form novalidate class="mt-4">' + HP +
-      '<div class="grid gap-3 sm:grid-cols-2">' +
+    '<h2 id="ml-title" class="pr-8 text-[17px] font-semibold leading-snug sm:pr-10 sm:text-xl">Richiedi un preventivo per il tuo condominio</h2>' +
+    '<p class="mt-1 hidden text-sm text-gray-600 sm:block">Inserisci i tuoi recapiti: un referente ti contatterà per raccogliere le informazioni sullo stabile e concordare il sopralluogo.</p>' +
+    '<p class="mt-1 text-[12.5px] leading-snug text-gray-600 sm:hidden">Lascia i recapiti: ti contattiamo per il sopralluogo gratuito.</p>' +
+    '<div class="mt-2 flex items-center justify-between gap-2 rounded-[10px] bg-[#F9FAFB] px-3 py-2 text-[12.5px] text-gray-600 ring-1 ring-gray-200 sm:mt-3 sm:gap-3 sm:px-3.5 sm:py-2.5 sm:text-[13px]"><span class="min-w-0 leading-snug">' + Q.riep + '</span><b class="shrink-0 text-[14px] font-semibold text-brand sm:text-[15px]">' + eur(Q.tot) + '/mese</b></div>' +
+    '<form novalidate class="mt-3 lead-form sm:mt-4">' + HP +
+      '<div class="grid gap-2 sm:grid-cols-2 sm:gap-3">' +
         field('ml-n', 'nome', 'Nome e cognome', 'text', 'name', 'Mario Rossi') +
         field('ml-t', 'telefono', 'Telefono', 'tel', 'tel', '333 123 4567') +
         field('ml-e', 'email', 'Email', 'email', 'email', 'mario.rossi@email.it') +
@@ -790,7 +854,7 @@ function openLead() {
         field('ml-c', 'citta', 'Città', 'text', 'address-level2', 'Verona') +
       '</div>' + privacy('e chiedo di essere ricontattato.') +
       '<p class="err hidden" data-srv></p>' +
-      '<button type="submit" class="btn btn-primary btn-lg mt-4 w-full">Richiedi il sopralluogo gratuito</button>' +
+      '<button type="submit" class="btn btn-primary mt-3 w-full sm:btn-lg sm:mt-4">Richiedi il sopralluogo gratuito</button>' +
     '</form>';
   $('#ml-c').value = 'Verona';
   handleForm($('#ml-body form'), {

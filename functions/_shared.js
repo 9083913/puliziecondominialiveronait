@@ -187,7 +187,8 @@ export async function capture(request, env, eventType, ctx) {
       }
     }
     return json({ ok: true, id, type: eventType });
-  } catch {
+  } catch (err) {
+    console.error("lead_save_failed", site, eventType, String(err && err.message || err));
     return json({ ok: false, error: "save_failed" }, 500);
   }
 }
