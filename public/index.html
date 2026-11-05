@@ -861,10 +861,7 @@ function openLead() {
     '<p class="mt-1 text-[12.5px] leading-snug text-gray-600 sm:hidden">Lascia i recapiti: ti contattiamo per il sopralluogo gratuito.</p>' +
     '<div class="mt-2 flex items-center justify-between gap-2 rounded-[10px] bg-[#F9FAFB] px-3 py-2 text-[12.5px] text-gray-600 ring-1 ring-gray-200 sm:mt-3 sm:gap-3 sm:px-3.5 sm:py-2.5 sm:text-[13px]"><span class="min-w-0 leading-snug">' + Q.riep + '</span><b class="shrink-0 text-[14px] font-semibold text-brand sm:text-[15px]">' + eur(Q.tot) + '/mese</b></div>' +
     '<form novalidate class="mt-3 lead-form sm:mt-4">' + HP +
-      '<div class="mb-2"><label class="label">Chi sei?</label><div class="grid grid-cols-2 gap-2" role="group" aria-label="Ruolo">' +
-        '<button type="button" class="opt is-on" data-ruolo="amministratore">Amministratore</button>' +
-        '<button type="button" class="opt" data-ruolo="condomino">Condomino</button>' +
-      '</div><input type="hidden" name="ruolo" id="ml-ruolo" value="amministratore"><p class="err hidden" data-e="ruolo"></p></div>' +
+
       '<div class="grid gap-2 sm:grid-cols-2 sm:gap-3">' +
         field('ml-n', 'nome', 'Nome e cognome', 'text', 'name', 'Mario Rossi') +
         field('ml-t', 'telefono', 'Telefono', 'tel', 'tel', '333 123 4567') +
@@ -876,17 +873,10 @@ function openLead() {
       '<button type="submit" class="btn btn-primary mt-3 w-full sm:btn-lg sm:mt-4">Richiedi sopralluogo</button>' +
     '</form>';
   $('#ml-c').value = 'Verona';
-  $('#ml-body').querySelectorAll('[data-ruolo]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      $('#ml-body').querySelectorAll('[data-ruolo]').forEach(function (x) { x.classList.remove('is-on'); });
-      b.classList.add('is-on'); $('#ml-ruolo').value = b.getAttribute('data-ruolo');
-    });
-  });
   handleForm($('#ml-body form'), {
     path: '/api/lead',
     validate: function (v) {
       var er = {};
-      if (!v('ruolo')) er.ruolo = 'Seleziona chi sei';
       if (!v('nome')) er.nome = 'Inserisci nome e cognome';
       if (v('telefono').replace(/\D/g, '').length < 9) er.telefono = 'Inserisci un numero di telefono valido';
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) er.email = 'Inserisci un indirizzo email valido';
@@ -895,9 +885,9 @@ function openLead() {
       if (!v('privacy')) er.privacy = 'Conferma di aver letto l\'informativa privacy';
       return er;
     },
-    body: function (v) { return { source: 'calculator', mode: 'call', nome: v('nome'), telefono: v('telefono'), email: v('email'), indirizzo: v('indirizzo') + ', ' + v('citta'), via: v('indirizzo'), citta: v('citta'), ruolo: v('ruolo') || 'amministratore', privacy: true,
+    body: function (v) { return { source: 'calculator', mode: 'call', nome: v('nome'), telefono: v('telefono'), email: v('email'), indirizzo: v('indirizzo') + ', ' + v('citta'), via: v('indirizzo'), citta: v('citta'), privacy: true,
       quote: { piani: S.piani, appartamenti: S.app, ascensore: S.asc, areaEsterna: S.est, garage: S.gar, piuScale: S.scale, frequenza: S.freq, stimaMensileEur: Q.tot, quotaAppartamentoEur: Q.perApp, riepilogo: Q.riep } }; },
-    ok: function (v) { try { localStorage.setItem('pcv_lead_sent', '1'); } catch (x) {} track('lead_submit', { fonte: 'calcolatrice', prezzo_mensile: Q.tot, ruolo: v('ruolo') });
+    ok: function (v) { try { localStorage.setItem('pcv_lead_sent', '1'); } catch (x) {} track('lead_submit', { fonte: 'calcolatrice', prezzo_mensile: Q.tot });
       $('#ml-body').innerHTML = done('Grazie ' + esc(v('nome')) + ', richiesta ricevuta!', 'Ti ricontatteremo al numero indicato per concordare la valutazione del condominio.'); }
   });
   openDlg(mLead);
@@ -1457,8 +1447,6 @@ footer nav button, footer .btn{font-size:var(--fs-sm)!important;min-height:44px!
 <div id="pv-promo" hidden role="dialog" aria-label="Offerta Novembre"><div class="c"><button class="x" type="button" data-x aria-label="Chiudi">×</button>
 <div id="pv-f"><span class="b">SOLO A NOVEMBRE 2026</span><h2>−10% sul primo mese di pulizie</h2><p class="sub">Riservato ai nuovi condomini di Verona e provincia. Sopralluogo gratuito, nessun vincolo.</p>
 <form id="pv-form" novalidate>
-<div class="ruoli" role="group" aria-label="Chi sei?"><button type="button" class="on" data-r="amministratore">Amministratore</button><button type="button" data-r="condomino">Condomino</button></div>
-<input type="hidden" id="pv-ruolo" value="amministratore">
 <input id="pv-n" name="nome" placeholder="Nome e cognome" autocomplete="name" required>
 <input id="pv-t" name="telefono" type="tel" placeholder="Telefono" autocomplete="tel" required>
 <input id="pv-e" name="email" type="email" placeholder="Email" autocomplete="email" required>
@@ -1473,14 +1461,13 @@ function show(){if(seen()||!m.hidden)return;var o=document.querySelector('.modal
 setTimeout(show,90000);document.addEventListener('mouseout',function(e){if(!e.relatedTarget&&e.clientY<=0&&Date.now()-t0>8000)show()});
 var lastY=0;window.addEventListener('scroll',function(){var y=scrollY;if(y<lastY-400&&y<300&&Date.now()-t0>25000)show();lastY=y},{passive:true});
 m.addEventListener('click',function(e){if(e.target===m||e.target.closest('[data-x]'))m.hidden=true});
-m.querySelectorAll('.ruoli button').forEach(function(b){b.addEventListener('click',function(){m.querySelectorAll('.ruoli button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');document.getElementById('pv-ruolo').value=b.getAttribute('data-r')})});
 var pvn=document.getElementById('pv-n'),pvt=document.getElementById('pv-t'),pve=document.getElementById('pv-e'),pvp=document.getElementById('pv-piani'),pva=document.getElementById('pv-app'),pvc=document.getElementById('pv-p'),priv=m.querySelector('.pv-priv');
 function clearBad(){[pvn,pvt,pve,pvp,pva].forEach(function(i){i.classList.remove('is-bad')});priv.classList.remove('is-bad')}
 [pvn,pvt,pve,pvp,pva,pvc].forEach(function(i){i.addEventListener('input',clearBad);i.addEventListener('change',clearBad)});
-document.getElementById('pv-form').addEventListener('submit',function(e){e.preventDefault();clearBad();var n=pvn.value.trim(),t=pvt.value.trim(),em=pve.value.trim(),piani=+pvp.value,app=+pva.value,ruolo=document.getElementById('pv-ruolo').value,er=document.getElementById('pv-err'),bad=false;
+document.getElementById('pv-form').addEventListener('submit',function(e){e.preventDefault();clearBad();var n=pvn.value.trim(),t=pvt.value.trim(),em=pve.value.trim(),piani=+pvp.value,app=+pva.value,er=document.getElementById('pv-err'),bad=false;
 if(n.length<3){pvn.classList.add('is-bad');bad=1}if(t.replace(/\D/g,'').length<9){pvt.classList.add('is-bad');bad=1}if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){pve.classList.add('is-bad');bad=1}if(!(piani>=1)){pvp.classList.add('is-bad');bad=1}if(!(app>=1)){pva.classList.add('is-bad');bad=1}if(!pvc.checked){priv.classList.add('is-bad');bad=1}
 if(bad){er.textContent='Controlla i campi in rosso.';return}er.textContent='Invio…';
-fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:n,telefono:t,email:em,privacy:true,ruolo:ruolo,source:'promo_novembre_10',mode:'call',website:e.target.website.value,device:innerWidth<768?'mobile':'desktop',t:Date.now()-t0,quote:{piani:piani,appartamenti:app},attribution:{landing_url:location.href,referrer:document.referrer}})}).then(function(r){return r.json()}).then(function(j){if(!j.ok)throw new Error(j.error);mark('sent');document.getElementById('pv-f').hidden=true;document.getElementById('pv-ok').hidden=false}).catch(function(x){er.textContent=x.message||'Errore, chiamaci al 331 733 8620'})});
+fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:n,telefono:t,email:em,privacy:true,source:'promo_novembre_10',mode:'call',website:e.target.website.value,device:innerWidth<768?'mobile':'desktop',t:Date.now()-t0,quote:{piani:piani,appartamenti:app},attribution:{landing_url:location.href,referrer:document.referrer}})}).then(function(r){return r.json()}).then(function(j){if(!j.ok)throw new Error(j.error);mark('sent');document.getElementById('pv-f').hidden=true;document.getElementById('pv-ok').hidden=false}).catch(function(x){er.textContent=x.message||'Errore, chiamaci al 331 733 8620'})});
 })();</script>
 </body>
 </html>
