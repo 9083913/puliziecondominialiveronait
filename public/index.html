@@ -20,6 +20,26 @@
 <meta property="og:type" content="website"><meta property="og:locale" content="it_IT">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231240C8'/%3E%3Cpath d='M12 50h12V38h12V26h12V14h4' fill='none' stroke='%23fff' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',wait_for_update:500});</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B21VRMG2P5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B21VRMG2P5');
+</script>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=114096764', 'ym');
+    ym(114096764, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/114096764" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" as="style">
@@ -648,7 +668,7 @@ var ENDPOINT = ''; /* vuoto = stessa origine (Cloudflare Pages Functions /api/*)
 
 (function () {
 'use strict';
-var PHONE = '331 733 8620', WA = '393317338620', YM = 114085491, GTM = 'GTM-NQ5DVV8W';
+var PHONE = '331 733 8620', WA = '393317338620', YM = 114096764, GTM = 'G-B21VRMG2P5';
 
 /* ---------- MOTORE PREZZI: solo numeri interi (Math.round su ogni passaggio) ---------- */
 var P = { base: 110, perPiano: 25, perApp: 6, ascensore: 15, areaEsterna: 25, minSett: 210, minQuind: 150,
@@ -771,12 +791,8 @@ function track(name, params) {
 var loaded = false;
 function loadTrackers() {
   if (loaded) return; loaded = true;
-  (function (m, e, t, r, i, k, a) { m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); }; m[i].l = 1 * new Date();
-    for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) return; }
-    k = e.createElement(t); a = e.getElementsByTagName(t)[0]; k.async = 1; k.src = r; a.parentNode.insertBefore(k, a); })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + YM, 'ym');
-  window.ym(YM, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: 'dataLayer', referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true });
-  window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
-  var g = document.createElement('script'); g.async = true; g.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM; document.head.appendChild(g);
+  /* tags already present in <head>; keep grant/reachGoal helpers only */
+  try { if (window.ym) window.ym(YM, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: 'dataLayer', referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true }); } catch (e) {}
 }
 function grant(on) { var v = on ? 'granted' : 'denied'; gtag('consent', 'update', { analytics_storage: v, ad_storage: v, ad_user_data: v, ad_personalization: v }); }
 function showBar(v) { ckbar.classList.toggle('hidden', !v); mbar.classList.toggle('max-md:hidden', v); }
