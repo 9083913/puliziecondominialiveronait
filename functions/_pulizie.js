@@ -49,6 +49,7 @@ export async function handlePulizie(context, kind) {
   const answers = {
     siteTag: SITE_TAG,
     source: cleanText(body.source, 40) || (isPartner ? "partner" : "calculator"),
+    ruolo: isPartner ? undefined : (cleanText(body.ruolo, 40) || null),
     mode: cleanText(body.mode, 40) || null,
     partner: isPartner,
     tipo: isPartner ? cleanText(body.tipo, 40) || null : undefined,

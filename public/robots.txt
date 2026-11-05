@@ -3,3 +3,5 @@ Allow: /
 Disallow: /api/
 
 Sitemap: https://puliziecondominialiverona.it/sitemap.xml
+Disallow: /gestione-lead
+Disallow: /api/admin/

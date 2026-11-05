@@ -413,7 +413,7 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
       <span class="header-call-mobile text-[13px] font-semibold tracking-tight lg:hidden">Chiama Ora</span>
       <span class="header-call-desktop hidden lg:flex lg:flex-col lg:leading-tight text-ink"><span>Parla con un referente</span><span class="text-xs font-normal text-gray-500">331 733 8620</span></span>
     </a>
-    <button type="button" data-lead class="btn btn-primary btn-sm header-cta hidden shrink-0 sm:inline-flex">Richiedi preventivo</button>
+    <button type="button" data-lead class="btn btn-primary btn-sm header-cta hidden shrink-0 sm:inline-flex">Richiedi sopralluogo</button>
   </div>
 </header>
 
@@ -514,7 +514,7 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
     <div class="mb-5"><p class="eyebrow">Perché sceglierci</p><h2 id="h-why" class="h2 mt-1 why-title">Perché affidarci la pulizia del condominio.</h2></div>
     <div id="why" class="grid gap-3 sm:grid-cols-2 md:grid-cols-3"></div>
     <div class="mt-6 flex flex-wrap items-center gap-3">
-      <button type="button" data-lead class="btn btn-primary w-full sm:w-auto">Richiedi un preventivo gratuito</button>
+      <button type="button" data-lead class="btn btn-primary w-full sm:w-auto">Richiedi sopralluogo</button>
       <a href="tel:+393317338620" data-track="call_click:perche" class="btn btn-secondary w-full sm:w-auto">Parla con un referente</a>
       <span class="text-sm text-gray-500">Gestisci più stabili? <a href="tel:+393317338620" class="font-medium text-brand hover:underline">Richiedi una proposta dedicata</a></span>
     </div>
@@ -606,7 +606,7 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
 <!-- barra mobile -->
 <nav id="mbar" class="fixed inset-x-0 bottom-0 z-30 flex items-center gap-3 border-t border-gray-200 bg-white/95 px-3 pb-[calc(8px+env(safe-area-inset-bottom))] pt-2 backdrop-blur md:hidden" aria-label="Azioni rapide">
   <a href="#calcolatrice" class="mbar-price mr-auto min-w-0 leading-tight"><span class="mbar-price-label block text-[11px] font-medium text-gray-500">Canone mensile stimato</span><span class="mbar-price-value block whitespace-nowrap tracking-tight text-ink"><span id="mb-tot">295 €</span><span class="mbar-price-unit">/mese</span><span id="mb-ppa" class="hidden">30 €</span></span></a>
-  <button type="button" data-lead class="btn btn-primary btn-sm shrink-0">Richiedi preventivo</button>
+  <button type="button" data-lead class="btn btn-primary btn-sm shrink-0">Richiedi sopralluogo</button>
 </nav>
 
 
@@ -856,11 +856,16 @@ function handleForm(form, opts) {
 var mLead = $('#m-lead');
 function openLead() {
   $('#ml-body').innerHTML = X +
-    '<h2 id="ml-title" class="pr-8 text-[17px] font-semibold leading-snug sm:pr-10 sm:text-xl">Richiedi un preventivo per il tuo condominio</h2>' +
+    '<h2 id="ml-title" class="pr-8 text-[17px] font-semibold leading-snug sm:pr-10 sm:text-xl">Richiedi sopralluogo per il tuo condominio</h2>' +
     '<p class="mt-1 hidden text-sm text-gray-600 sm:block">Inserisci i tuoi recapiti: un referente ti contatterà per raccogliere le informazioni sullo stabile e concordare il sopralluogo.</p>' +
     '<p class="mt-1 text-[12.5px] leading-snug text-gray-600 sm:hidden">Lascia i recapiti: ti contattiamo per il sopralluogo gratuito.</p>' +
     '<div class="mt-2 flex items-center justify-between gap-2 rounded-[10px] bg-[#F9FAFB] px-3 py-2 text-[12.5px] text-gray-600 ring-1 ring-gray-200 sm:mt-3 sm:gap-3 sm:px-3.5 sm:py-2.5 sm:text-[13px]"><span class="min-w-0 leading-snug">' + Q.riep + '</span><b class="shrink-0 text-[14px] font-semibold text-brand sm:text-[15px]">' + eur(Q.tot) + '/mese</b></div>' +
     '<form novalidate class="mt-3 lead-form sm:mt-4">' + HP +
+      '<div class="mb-2"><label class="label">Chi sei?</label><div class="grid grid-cols-2 gap-2 sm:grid-cols-3" role="group" aria-label="Ruolo">' +
+        '<button type="button" class="opt is-on" data-ruolo="amministratore">Amministratore</button>' +
+        '<button type="button" class="opt" data-ruolo="consiglio">Consiglio</button>' +
+        '<button type="button" class="opt" data-ruolo="condomino">Condomino</button>' +
+      '</div><input type="hidden" name="ruolo" id="ml-ruolo" value="amministratore"><p class="err hidden" data-e="ruolo"></p></div>' +
       '<div class="grid gap-2 sm:grid-cols-2 sm:gap-3">' +
         field('ml-n', 'nome', 'Nome e cognome', 'text', 'name', 'Mario Rossi') +
         field('ml-t', 'telefono', 'Telefono', 'tel', 'tel', '333 123 4567') +
@@ -869,13 +874,20 @@ function openLead() {
         field('ml-c', 'citta', 'Città', 'text', 'address-level2', 'Verona') +
       '</div>' + privacy('e chiedo di essere ricontattato.') +
       '<p class="err hidden" data-srv></p>' +
-      '<button type="submit" class="btn btn-primary mt-3 w-full sm:btn-lg sm:mt-4">Richiedi il sopralluogo gratuito</button>' +
+      '<button type="submit" class="btn btn-primary mt-3 w-full sm:btn-lg sm:mt-4">Richiedi sopralluogo</button>' +
     '</form>';
   $('#ml-c').value = 'Verona';
+  $('#ml-body').querySelectorAll('[data-ruolo]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $('#ml-body').querySelectorAll('[data-ruolo]').forEach(function (x) { x.classList.remove('is-on'); });
+      b.classList.add('is-on'); $('#ml-ruolo').value = b.getAttribute('data-ruolo');
+    });
+  });
   handleForm($('#ml-body form'), {
     path: '/api/lead',
     validate: function (v) {
       var er = {};
+      if (!v('ruolo')) er.ruolo = 'Seleziona chi sei';
       if (!v('nome')) er.nome = 'Inserisci nome e cognome';
       if (v('telefono').replace(/\D/g, '').length < 9) er.telefono = 'Inserisci un numero di telefono valido';
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) er.email = 'Inserisci un indirizzo email valido';
@@ -884,9 +896,9 @@ function openLead() {
       if (!v('privacy')) er.privacy = 'Conferma di aver letto l\'informativa privacy';
       return er;
     },
-    body: function (v) { return { source: 'calculator', mode: 'call', nome: v('nome'), telefono: v('telefono'), email: v('email'), indirizzo: v('indirizzo') + ', ' + v('citta'), via: v('indirizzo'), citta: v('citta'), privacy: true,
+    body: function (v) { return { source: 'calculator', mode: 'call', nome: v('nome'), telefono: v('telefono'), email: v('email'), indirizzo: v('indirizzo') + ', ' + v('citta'), via: v('indirizzo'), citta: v('citta'), ruolo: v('ruolo') || 'amministratore', privacy: true,
       quote: { piani: S.piani, appartamenti: S.app, ascensore: S.asc, areaEsterna: S.est, garage: S.gar, piuScale: S.scale, frequenza: S.freq, stimaMensileEur: Q.tot, quotaAppartamentoEur: Q.perApp, riepilogo: Q.riep } }; },
-    ok: function (v) { try { localStorage.setItem('pcv_lead_sent', '1'); } catch (x) {} track('lead_submit', { fonte: 'calcolatrice', prezzo_mensile: Q.tot });
+    ok: function (v) { try { localStorage.setItem('pcv_lead_sent', '1'); } catch (x) {} track('lead_submit', { fonte: 'calcolatrice', prezzo_mensile: Q.tot, ruolo: v('ruolo') });
       $('#ml-body').innerHTML = done('Grazie ' + esc(v('nome')) + ', richiesta ricevuta!', 'Ti ricontatteremo al numero indicato per concordare la valutazione del condominio.'); }
   });
   openDlg(mLead);
