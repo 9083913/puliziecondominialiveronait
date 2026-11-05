@@ -6,7 +6,7 @@ const SITE_BY_HOST = {
 };
 
 // Sites whose leads are queued for CRM sync (zoho_outbox; the cron worker adds pipedrive_outbox).
-export const CRM_SITES = new Set(["tettochiaro", "puliziecondominialiverona"]);
+export const CRM_SITES = new Set(["tettochiaro", "preventivotetto", "tettocondominiale", "puliziecondominialiverona"]);
 
 export function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
