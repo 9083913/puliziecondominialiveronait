@@ -389,8 +389,14 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
   .hero-title { font-size: clamp(2.05rem, 2.6vw, 2.55rem) !important; }
 }
 /* Hide typography studio on published site */
-#font-studio-launch, #font-studio { display: none !important; }
+/* font studio enabled for testing */
 </style>
+<style id="font-studio-tracking">
+:root{--heading-tracking:-0.035em}
+h1,h2,h3,h4,.h2,.hero-title,#tot,#ppa,#mb-tot,#mb-ppa,.fs-preview-title,.fs-preview-price{letter-spacing:var(--heading-tracking)!important}
+body.fs-tight-pjs h1,body.fs-tight-pjs h2,body.fs-tight-pjs h3,body.fs-tight-pjs .hero-title{font-weight:800!important}
+</style>
+
 </head>
 <body>
 <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] btn btn-primary">Vai al contenuto</a>
@@ -611,13 +617,13 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
 
 
 <!-- Strumento di prova tipografica: 30 famiglie, anteprima live sull'intera pagina -->
-<button type="button" id="font-studio-launch" aria-expanded="false" aria-controls="font-studio"><span class="aa">Aa</span>Prova 30 font</button>
+<button type="button" id="font-studio-launch" aria-expanded="false" aria-controls="font-studio"><span class="aa">Aa</span>Prova 34 font</button>
 <aside id="font-studio" aria-label="Prova i caratteri del sito" aria-hidden="true">
-  <h3>Prova i 30 caratteri</h3>
+  <h3>Prova i 34 caratteri</h3>
   <p class="fs-sub">Scegli un font per i titoli e uno per i testi. L’anteprima cambia su tutta la pagina.</p>
-  <label for="font-heading-select">Font dei titoli · 30 opzioni</label>
+  <label for="font-heading-select">Font dei titoli · 34 opzioni</label>
   <select id="font-heading-select"></select>
-  <label for="font-body-select">Font dei testi · 30 opzioni</label>
+  <label for="font-body-select">Font dei testi · 34 opzioni</label>
   <select id="font-body-select"></select>
   <div class="fs-preview" aria-live="polite">
     <div class="fs-preview-title">Pulizie condominiali a Verona.</div>
@@ -625,7 +631,7 @@ main>section:last-child a.btn:hover{background:#f7f9fd!important}
     <div class="fs-preview-price">€295 / mese</div>
   </div>
   <div class="fs-actions"><button type="button" id="font-studio-reset">Ripristina</button><button type="button" id="font-studio-close">Chiudi</button></div>
-  <p class="fs-status" id="font-studio-status">Anteprima temporanea: per caricare i font serve una connessione internet. Il selettore va rimosso prima della pubblicazione.</p>
+  <p class="fs-status" id="font-studio-status">Selettore di prova attivo: scegli e confronta i font su PC e smartphone. La scelta resta salvata nel browser.</p>
 </aside>
 
 <!-- ============ POPUP LEAD ============ -->
@@ -956,14 +962,20 @@ attribution(); update(false);
 (function(){
   'use strict';
   var fonts = [
+    ['Plus Jakarta Sans','Bold premium · tracking stretto'],
+    ['Cabinet Grotesk','Fontshare · bold geometrico'],
+    ['General Sans','Fontshare · contemporaneo'],
+    ['Inter Display','Bold/Black display'],
     ['Archivo','Compatto e autorevole'],['Instrument Sans','Sobrio e contemporaneo'],['Sora','Distintivo e moderno'],['IBM Plex Sans','Tecnico e corporate'],['Source Sans 3','Editoriale e leggibile'],
-    ['Public Sans','Istituzionale e pulito'],['Plus Jakarta Sans','Morbido e premium'],['Inter','Equilibrato e contemporaneo'],['Inter Tight','Compatto e deciso'],['Roboto','Neutro e universale'],
+    ['Public Sans','Istituzionale e pulito'],['Inter','Equilibrato e contemporaneo'],['Inter Tight','Compatto e deciso'],['Roboto','Neutro e universale'],
     ['Open Sans','Chiaro e accessibile'],['Lato','Caldo e professionale'],['Work Sans','Moderno e funzionale'],['Figtree','Fresco e versatile'],['Urbanist','Geometrico e raffinato'],
     ['Outfit','Pulito e geometrico'],['Space Grotesk','Deciso e contemporaneo'],['Nunito Sans','Accogliente e leggibile'],['Barlow','Tecnico e dinamico'],['Barlow Condensed','Compatto e forte'],
     ['Cabin','Umano e professionale'],['Libre Franklin','Classico e solido'],['Red Hat Display','Editoriale e contemporaneo'],['Epilogue','Moderno e caratteristico'],['Rubik','Compatto e accessibile'],
     ['Playfair Display','Elegante e editoriale'],['Lora','Raffinato e leggibile'],['Albert Sans','Essenziale e attuale'],['Jost','Pulito e geometrico'],['Lexend','Progettato per la leggibilità']
   ];
+  var cssFamily = {'Inter Display':'Inter'};
   var defaults = {heading:'Archivo', body:'Instrument Sans'};
+  var tightTrack = {'Plus Jakarta Sans':'-0.045em','Cabinet Grotesk':'-0.04em','General Sans':'-0.035em','Inter Display':'-0.04em'};
   var launch=document.getElementById('font-studio-launch');
   var panel=document.getElementById('font-studio');
   var h=document.getElementById('font-heading-select');
@@ -976,28 +988,37 @@ attribution(); update(false);
     });
   }
   var loaded={};
+  function hrefFor(family){
+    if(family==='Cabinet Grotesk') return 'https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&display=swap';
+    if(family==='General Sans') return 'https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap';
+    if(family==='Inter Display') return 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap';
+    if(family==='Plus Jakarta Sans') return 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap';
+    var encoded=family.replace(/ /g,'+');
+    return 'https://fonts.googleapis.com/css2?family='+encoded+':wght@400;500;600;700;800&display=swap';
+  }
   function loadFont(family){
     if(loaded[family])return Promise.resolve();
     loaded[family]=true;
     var id='gfont-'+family.toLowerCase().replace(/[^a-z0-9]+/g,'-');
     if(document.getElementById(id))return Promise.resolve();
     var link=document.createElement('link');link.id=id;link.rel='stylesheet';
-    var encoded=family.replace(/ /g,'+');
-    var weights='400;500;600;700';
-    link.href='https://fonts.googleapis.com/css2?family='+encoded+':wght@'+weights+'&display=swap';
+    link.href=hrefFor(family);
     link.onerror=function(){status.textContent='Impossibile caricare '+family+'. Verifica la connessione e prova un altro font.';};
     document.head.appendChild(link);
-    return new Promise(function(resolve){link.onload=function(){if(document.fonts&&document.fonts.load){document.fonts.load('600 16px "'+family+'"').then(resolve).catch(resolve);}else resolve();};setTimeout(resolve,2500);});
+    var cssName=cssFamily[family]||family;
+    return new Promise(function(resolve){link.onload=function(){if(document.fonts&&document.fonts.load){document.fonts.load('700 16px "'+cssName+'"').then(resolve).catch(resolve);}else resolve();};setTimeout(resolve,2500);});
   }
+  function cssName(family){return cssFamily[family]||family;}
   function apply(){
     var hf=h.value,bf=b.value;
-    document.documentElement.style.setProperty('--heading-font','"'+hf+'"');
-    document.documentElement.style.setProperty('--body-font','"'+bf+'"');
-    status.textContent='Titoli: '+hf+' · Testi: '+bf+' — anteprima applicata a tutta la pagina.';
+    var hCss=cssName(hf), bCss=cssName(bf);
+    document.documentElement.style.setProperty('--heading-font','"'+hCss+'"');
+    document.documentElement.style.setProperty('--body-font','"'+bCss+'"');
+    var track=tightTrack[hf]||'-0.035em';
+    document.documentElement.style.setProperty('--heading-tracking', track);
+    status.textContent='Titoli: '+hf+' · Testi: '+bf+' — anteprima su tutta la pagina (tracking titoli: '+track+').';
     try{localStorage.setItem('pcv_font_choice',JSON.stringify({heading:hf,body:bf}));}catch(e){}
-    Promise.all([loadFont(hf),loadFont(bf)]).then(function(){
-      if(document.fonts&&document.fonts.check){document.fonts.check('600 16px "'+hf+'"');document.fonts.check('400 16px "'+bf+'"');}
-    });
+    Promise.all([loadFont(hf),loadFont(bf)]);
   }
   function restore(){h.value=defaults.heading;b.value=defaults.body;apply();}
   options();
